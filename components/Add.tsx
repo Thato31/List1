@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SelectList } from 'react-native-dropdown-select-list';
+import { Book } from '../models/book';
 
 export const Add = () => {
   const [title, setTitle] = useState<string>();
@@ -9,6 +10,7 @@ export const Add = () => {
   const [genre, setGenre] = useState<string>();
   const [nop, setNop] = useState<number>();
 
+  //const [booklist, setBooklist] = useState<Book[]>([]);
   //const [selected, setSelected] = useState("");
   const data = [
     { key: '1', value: 'Fiction' },
@@ -30,7 +32,14 @@ export const Add = () => {
     console.log('Genre ' + genre);
     console.log('Pages: ' + nop);
     //SetData();
-    navigation.navigate('Home');
+    const arr = [title, author, genre, nop];
+    if (!title) {
+      Alert.alert('No Item!', 'You need to enter an item');
+    } else {
+      //setBooklist([...booklist, {title, author, genre, nop}]);
+      navigation.navigate('Home',
+        params: { title: title, author: author, genre: genre, nop: nop });
+    }
   }
 
   return (
@@ -60,7 +69,7 @@ export const Add = () => {
         placeholder={'Number of Pages'}
         keyboardType="numeric"
         value={nop}
-        onChangeText={text => setNop(text)}
+        onChangeText={q => setNop(q)}
       />
       <View style={styles.BtnWrapper}>
         <Button

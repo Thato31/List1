@@ -8,20 +8,38 @@ import {
   ScrollView,
 } from 'react-native';
 import { Book } from '../models/book';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Add } from './Add';
+import { BookView } from './BookView';
+//import { openDatabase } from 'react-native-sqlite-storage';
+const route = useRoute();
 
 export const Home = () => {
   const [todo, setTodo] = useState<string>('');
-  const [books, setBooks] = useState<Book[]>([]);
+  const [booklist, setBooklist] = useState<Book[]>([]);
   const navigation = useNavigation();
+  //setBooklist(books);
+  React.useEffect(() => {
+    if (route.params.? title) {
+      // Post updated, do something with `route.params.post`
+      // For example, send the post to the server
+    }
+  }, [route.params ?]);
+
   return (
     <View style={styles.container}>
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Book List</Text>
         <View style={styles.items}>
           <ScrollView>
-            <Text>This is the home page</Text>
+            {booklist.map(t => {
+              <BookView
+                title={t.title}
+                author={t.author}
+                genre={t.genre}
+                pages={t.genre}
+              />;
+            })}
           </ScrollView>
         </View>
       </View>
