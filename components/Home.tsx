@@ -19,12 +19,7 @@ export const Home = () => {
   const [booklist, setBooklist] = useState<Book[]>([]);
   const navigation = useNavigation();
   //setBooklist(books);
-  React.useEffect(() => {
-    if (route.params.? title) {
-      // Post updated, do something with `route.params.post`
-      // For example, send the post to the server
-    }
-  }, [route.params ?]);
+
 
   return (
     <View style={styles.container}>

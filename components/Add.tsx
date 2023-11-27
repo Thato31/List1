@@ -32,13 +32,12 @@ export const Add = () => {
     console.log('Genre ' + genre);
     console.log('Pages: ' + nop);
     //SetData();
-    const arr = [title, author, genre, nop];
+    //const arr = [title, author, genre, nop];
     if (!title) {
       Alert.alert('No Item!', 'You need to enter an item');
     } else {
       //setBooklist([...booklist, {title, author, genre, nop}]);
-      navigation.navigate('Home',
-        params: { title: title, author: author, genre: genre, nop: nop });
+      navigation.navigate('Home');
     }
   }
 
