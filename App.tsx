@@ -3,10 +3,18 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { Home } from './components/Home';
 import { Add } from './components/Add';
+import { BookView } from './components/BookView';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Home: { title: string; author: string; genre: string; pages: string };
+  Add: undefined;
+  BookView: undefined;
+  Genre: undefined;
+};
 
-const App = () => {
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+function App(): JSX.Element {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -15,6 +23,6 @@ const App = () => {
       </Stack.Navigator>
     </NavigationContainer>
   );
-};
+}
 
 export default App;

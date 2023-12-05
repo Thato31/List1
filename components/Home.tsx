@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -8,34 +8,36 @@ import {
   ScrollView,
 } from 'react-native';
 import { Book } from '../models/book';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { Add } from './Add';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../App';
 import { BookView } from './BookView';
-//import { openDatabase } from 'react-native-sqlite-storage';
-const route = useRoute();
 
-export const Home = () => {
-  const [todo, setTodo] = useState<string>('');
-  const [booklist, setBooklist] = useState<Book[]>([]);
-  const navigation = useNavigation();
-  //setBooklist(books);
+type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
+export const Home = ({ route, navigation }: HomeProps) => {
+  const [books, setBooks] = useState<Book[]>([]);
+  console.log('This the route' + route);
+
+  const title = route.params.title;
+  const author = route.params.author;
+  const genre = route.params.genre;
+  const pages = route.params.pages;
+
+  setBooks([...books, { title, author, genre, pages }]);
 
   return (
     <View style={styles.container}>
       <View style={styles.tasksWrapper}>
         <Text style={styles.sectionTitle}>Book List</Text>
         <View style={styles.items}>
-          <ScrollView>
-            {booklist.map(t => {
-              <BookView
-                title={t.title}
-                author={t.author}
-                genre={t.genre}
-                pages={t.genre}
-              />;
-            })}
-          </ScrollView>
+          {books.map(input => (
+            <BookView
+              title={input.title}
+              author={input.author}
+              genre={input.genre}
+              pages={input.pages}
+            />
+          ))}
         </View>
       </View>
       <View style={styles.addBtn}>
@@ -89,3 +91,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
   },
 });
+function userRoute() {
+  throw new Error('Function not implemented.');
+}
